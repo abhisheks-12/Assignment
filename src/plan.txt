@@ -1,0 +1,6 @@
+Create a nice looking contact us page with first name, last name, email, message, additional details and send button. 
+The form should have suitable validations on the form fields (e.g. number not allowed in the name field). 
+When a user submits the form without filing the mandatory fields, 
+the form should display the error messages highlighting which fields are invalid. 
+When a user submits a valid form, all the messages should be displayed on a table. 
+The table should have a sorting, searching and pagination functionality.

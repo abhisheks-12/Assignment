@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "firstname": "test",
+      "lastname": "tests test",
+      "email": "tests@test.com",
+      "msg": "Hello World",
+      "details": "this is test data",
+      "id": 1
+    },
+    {
+      "firstname": "Abhishek",
+      "lastname": "Sankpal",
+      "email": "abhishek.sankpal12@gmail.com",
+      "message": "Hello my name is",
+      "details": "Good",
+      "id": 2
+    },
+    {
+      "firstname": "Hello",
+      "lastname": "Nye",
+      "email": "abhishek.saaa@gmail.com",
+      "message": "hello my name is",
+      "details": "Good",
+      "id": 3
+    }
+  ]
+}
