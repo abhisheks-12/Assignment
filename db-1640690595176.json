@@ -12,7 +12,7 @@
       "firstname": "Abhishek",
       "lastname": "Sankpal",
       "email": "abhishek.sankpal12@gmail.com",
-      "msg": "Hello",
+      "message": "Hello my name is",
       "details": "Good",
       "id": 2
     },
@@ -20,7 +20,7 @@
       "firstname": "Hello",
       "lastname": "Nye",
       "email": "abhishek.saaa@gmail.com",
-      "msg": "helloWorld",
+      "message": "hello my name is",
       "details": "Good",
       "id": 3
     }

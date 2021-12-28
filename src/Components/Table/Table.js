@@ -3,7 +3,6 @@ import "./Table.css";
 
 const Table = () => {
   const [allUsers, setAllUsers] = useState([]);
-  const [filterData, setFilteredData] = useState([]);
   const [input, setInput] = useState("");
   const [allPages, setALLPages] = useState([1]);
 
@@ -11,20 +10,30 @@ const Table = () => {
     const response = await fetch("http://localhost:8000/users");
     const result = await response.json();
     setAllUsers([...result]);
-    setFilteredData([...result]);
   };
 
   useEffect(() => {
     getData();
     // console.log(allUsers);
-  }, [allUsers]);
+  }, []);
 
-  const updateInput = (input) => {
-    // setInput(input);
-    const filtered = setAllUsers.filter((data) => {
-      return data.firstname.toLowerCase().includes(input.toLowerCase());
+  const handelsortAsc = () => {
+    // console.log("Hello");
+    const tempArr = allUsers;
+    const sortedData = tempArr.sort((a, b) => {
+      return a.id - b.id;
     });
-    setFilteredData(filtered);
+    // console.log(sortedData);
+    setAllUsers([...sortedData]);
+  };
+
+  const handelSortDsc = () => {
+    const tempArr = allUsers;
+    const sortedData = tempArr.sort((a, b) => {
+      return b.id - a.id;
+    });
+    // console.log(sortedData);
+    setAllUsers([...sortedData]);
   };
 
   return (
@@ -35,9 +44,9 @@ const Table = () => {
           class="form-control"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-default"
-          placeholder="search"
+          placeholder="search...."
           value={input}
-          onChange={updateInput}
+          onChange={(e) => setInput(e.target.value)}
         />
       </div>
 
@@ -45,30 +54,43 @@ const Table = () => {
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">sr.no</th>
+              <th scope="col">
+                <i class="fas fa-sort-up" onClick={handelsortAsc} />
+                Sr.No
+                <i class="fas fa-sort-down" onClick={handelSortDsc} />
+              </th>
               <th scope="col">Name</th>
               <th scope="col">Lastname</th>
               <th scope="col">Email</th>
               <th scope="col">Message</th>
               <th scope="col">Details</th>
-              <th scope="col">Sort</th>
             </tr>
           </thead>
 
           <tbody>
-            {allUsers.map((data) => (
-              <>
-                <tr key={data.id}>
-                  {/* <th scope="row">1</th> */}
-                  <td>{data.id}</td>
-                  <td>{data.firstname}</td>
-                  <td>{data.lastname}</td>
-                  <td>{data.email}</td>
-                  <td>{data.msg}</td>
-                  <td>{data.details}</td>
-                </tr>
-              </>
-            ))}
+            {allUsers
+              .filter((items) => {
+                if (input === "") {
+                  return items;
+                } else if (
+                  items.firstname.toLowerCase().includes(input.toLowerCase())
+                ) {
+                  return items;
+                }
+              })
+              .map((data) => (
+                <>
+                  <tr key={data.id}>
+                    {/* <th scope="row">1</th> */}
+                    <td>{data.id}</td>
+                    <td>{data.firstname}</td>
+                    <td>{data.lastname}</td>
+                    <td>{data.email}</td>
+                    <td>{data.msg}</td>
+                    <td>{data.details}</td>
+                  </tr>
+                </>
+              ))}
           </tbody>
         </table>
 
