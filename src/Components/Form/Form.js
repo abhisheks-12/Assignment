@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Form.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
   const [formValues, setFormValues] = useState({
@@ -9,7 +11,7 @@ const Form = () => {
     message: "",
     details: "",
   });
-
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -25,20 +27,19 @@ const Form = () => {
     setIsSubmit(true);
 
     // uploading data
-
     const users = formValues;
-
     fetch("http://localhost:8000/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(users),
     }).then(() => {
       console.log("new user added");
+      navigate("/tabel");
     });
   };
 
   useEffect(() => {
-    console.log(errors);
+    // console.log(errors);
     if (Object.keys(errors).length === 0 && isSubmit) {
       console.log(formValues);
     }
@@ -47,9 +48,12 @@ const Form = () => {
   // handling errors
   const checkForm = (values) => {
     const errors = {};
+    const numCheck = /[a-zåäö ]/i;
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.firstname) {
       errors.firstname = "Firstname is required";
+    } else if (!numCheck.test(values.firstname)) {
+      errors.firstname = "Only Letters are acceptable";
     }
     if (!values.email) {
       errors.email = "Email is Required";
@@ -117,7 +121,7 @@ const Form = () => {
             <p>{errors.message}</p>
             <label>Aditional Details</label>
             <input
-              name="Additional Details"
+              name="details"
               placeholder="Additional Details"
               value={formValues.details}
               onChange={handelChange}
@@ -125,8 +129,10 @@ const Form = () => {
             />
             <div className="btn">
               <button>Submit</button>
+              <Link to="/tabel">
+                <p>See data</p>
+              </Link>
             </div>
-            <p>See data</p>
           </form>
         </div>
       </div>
